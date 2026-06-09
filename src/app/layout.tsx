@@ -5,9 +5,9 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AION SITE BUILDER — Sites Profissionais em até 24 Horas",
+  title: "AION — Sites profissionais para empresas locais",
   description:
-    "Sites profissionais para pequenas empresas. Entrega em até 24 horas. A partir de R$1.497. WhatsApp: +5511910376040",
+    "Sites profissionais para empresas locais que precisam gerar contatos pelo WhatsApp, transmitir confiança e aparecer melhor no Google.",
 };
 
 export default function RootLayout({

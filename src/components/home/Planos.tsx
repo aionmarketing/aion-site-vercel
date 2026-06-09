@@ -1,70 +1,91 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Check, MessageCircle } from 'lucide-react';
+import { ArrowRight, Check, MessageCircle } from 'lucide-react';
+import Link from 'next/link';
 
-const plans = [
-  { name: 'Essencial', price: 'R$1.497', desc: 'Site one-page que já resolve', features: ['1 página completa', 'Design responsivo (celular e PC)', 'Botão de WhatsApp integrado', 'Entrega em até 24 horas', '1 revisão inclusa'], popular: false },
-  { name: 'Profissional', price: 'R$2.497', desc: 'O mais vendido — site completo', features: ['Até 5 páginas', 'Design responsivo premium', 'WhatsApp + formulário de contato', 'SEO básico (aparecer no Google)', 'Entrega em até 24 horas', '2 revisões inclusas'], popular: true },
-  { name: '100% Personalizado', price: 'R$4.497', desc: 'Do zero, exclusivo pra você', features: ['Páginas ilimitadas', 'Design exclusivo feito pra você', 'WhatsApp + formulários avançados', 'SEO completo', 'Entrega em até 72 horas', 'Revisões ilimitadas'], popular: false },
-];
-
-const bumps = [
-  { name: 'Logo Profissional', price: '+R$497' },
-  { name: 'Identidade Visual Completa', price: '+R$797' },
-  { name: 'Copywriting Profissional', price: '+R$497' },
-  { name: 'SEO Avançado', price: '+R$397' },
-  { name: 'Google Meu Negócio', price: '+R$297' },
+const offers = [
+  {
+    name: 'Essencial',
+    price: 'R$1.497',
+    desc: 'Para sair do improviso com uma página forte, clara e pronta para gerar contato.',
+    features: ['One-page completa', 'Copy base por nicho', 'WhatsApp integrado', 'Responsivo no celular', 'Publicação orientada'],
+    href: '/pedir?plano=essencial',
+    highlight: false,
+  },
+  {
+    name: 'Profissional',
+    price: 'R$2.497',
+    desc: 'Para empresas que precisam explicar melhor serviços, diferenciais e caminho de compra.',
+    features: ['Até 5 páginas', 'Estrutura comercial completa', 'SEO local básico', 'Formulário + WhatsApp', '2 rodadas de ajuste'],
+    href: '/pedir?plano=profissional',
+    highlight: true,
+  },
+  {
+    name: 'Sob medida',
+    price: 'A consultar',
+    desc: 'Para quem precisa de projeto mais estratégico, visual exclusivo, e-commerce ou sistema.',
+    features: ['Escopo personalizado', 'Direção visual exclusiva', 'Copywriting avançado', 'Integrações e automações', 'Planejamento por etapa'],
+    href: '/pedir?plano=sob-medida',
+    highlight: false,
+  },
 ];
 
 export default function Planos() {
   return (
-    <section className="py-20 sm:py-28 border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
-          <p className="text-xs font-medium tracking-[0.25em] uppercase text-[#00ff88] mb-3">Investimento</p>
-          <h2 className="heading-section text-white">Quanto custa ter cliente?</h2>
-          <p className="text-gray-500 mt-4">12x no cartão. Sem surpresa. Sem mensalidade oculta.</p>
-        </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          {plans.map((plan, i) => (
-            <motion.div key={plan.name} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className={`relative p-8 rounded-lg border ${plan.popular ? 'border-[#00ff88]/30 bg-[#00ff88]/[0.03]' : 'border-white/5'}`}>
-              {plan.popular && <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-[#00ff88] text-[#0c0c0c] text-xs font-bold rounded-full">Mais vendido</div>}
-              <h3 className="text-xl font-bold text-white mb-1">{plan.name}</h3>
-              <p className="text-sm text-gray-500 mb-4">{plan.desc}</p>
-              <div className="text-3xl font-bold text-white mb-6">{plan.price}</div>
-              <ul className="space-y-3 mb-8">
-                {plan.features.map(f => <li key={f} className="flex items-center gap-2 text-sm text-gray-300"><Check size={16} className="text-[#00ff88] shrink-0" />{f}</li>)}
-              </ul>
-              <a href={`/pedir?plano=${plan.name.toLowerCase()}`} className="block text-center py-3 font-bold rounded-lg transition-all hover:brightness-110" style={{backgroundColor: plan.popular ? '#00ff88' : 'transparent', color: plan.popular ? '#0c0c0c' : '#fff', border: plan.popular ? 'none' : '1px solid rgba(255,255,255,0.2)'}}>Quero o {plan.name}</a>
-            </motion.div>
+    <section className="border-b border-white/10 bg-[#080808] py-16 sm:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto mb-12 max-w-3xl text-center">
+          <p className="mb-3 text-xs font-black uppercase tracking-[0.22em] text-[#00ff88]">Investimento</p>
+          <h2 className="text-3xl font-black leading-tight text-white sm:text-5xl">
+            Escolha o ponto de partida. A estratégia vem antes do preço final.
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-gray-400">
+            Os valores abaixo servem para orientar. No diagnóstico, a AION indica o escopo certo para não pagar por excesso nem economizar onde trava conversão.
+          </p>
+        </div>
+
+        <div className="grid gap-5 lg:grid-cols-3">
+          {offers.map(offer => (
+            <div key={offer.name} className={`relative rounded-3xl border p-6 ${offer.highlight ? 'border-[#00ff88]/45 bg-[#00ff88]/[0.07] shadow-2xl shadow-[#00ff88]/10' : 'border-white/10 bg-white/[0.035]'}`}>
+              {offer.highlight && (
+                <div className="absolute -top-3 left-6 rounded-full bg-[#00ff88] px-3 py-1 text-xs font-black uppercase tracking-wider text-[#07110b]">
+                  mais indicado
+                </div>
+              )}
+              <h3 className="text-2xl font-black text-white">{offer.name}</h3>
+              <p className="mt-3 min-h-[72px] text-sm leading-relaxed text-gray-400">{offer.desc}</p>
+              <div className="mt-6 flex items-end gap-2">
+                <span className="text-4xl font-black text-white">{offer.price}</span>
+                {offer.price.startsWith('R$') && <span className="pb-1 text-sm text-gray-500">à vista</span>}
+              </div>
+              <div className="mt-6 grid gap-3">
+                {offer.features.map(feature => (
+                  <div key={feature} className="flex items-center gap-3 text-sm text-gray-300">
+                    <Check className="h-4 w-4 shrink-0 text-[#00ff88]" />
+                    {feature}
+                  </div>
+                ))}
+              </div>
+              <Link href={offer.href} className={`mt-7 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-black transition ${offer.highlight ? 'bg-[#00ff88] text-[#07110b] hover:brightness-110' : 'border border-white/15 text-white hover:border-white/30 hover:bg-white/[0.04]'}`}>
+                Ver se faz sentido
+                <ArrowRight size={17} />
+              </Link>
+            </div>
           ))}
         </div>
-        {/* Order Bumps */}
-        <motion.div initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <p className="text-center text-xs font-medium tracking-[0.2em] uppercase text-gray-500 mb-6">Adicionais</p>
-          <div className="flex flex-wrap justify-center gap-3">
-            {bumps.map(b => (
-              <div key={b.name} className="flex items-center gap-2 px-4 py-2 border border-white/10 rounded-full text-sm">
-                <span className="text-gray-300">{b.name}</span>
-                <span className="text-[#00ff88] font-bold">{b.price}</span>
-              </div>
-            ))}
+
+        <div className="mt-8 grid gap-4 rounded-3xl border border-white/10 bg-white/[0.035] p-6 md:grid-cols-[1fr_auto] md:items-center">
+          <div>
+            <h3 className="text-xl font-black text-white">Ainda não sabe qual plano escolher?</h3>
+            <p className="mt-2 text-sm leading-relaxed text-gray-400">
+              Normal. O melhor site depende do seu segmento, oferta, urgência e tipo de cliente. Comece pelo diagnóstico.
+            </p>
           </div>
-        </motion.div>
-        {/* Ecommerce + Custom systems */}
-        <motion.div initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-10 text-center">
-          <div className="flex flex-wrap justify-center gap-3">
-            <div className="flex items-center gap-2 px-5 py-3 border border-[#00ff88]/20 rounded-lg text-sm bg-[#00ff88]/[0.02]">
-              <span className="text-white font-medium">E-commerce</span>
-              <span className="text-[#00ff88] font-bold">Preço a consultar</span>
-            </div>
-            <div className="flex items-center gap-2 px-5 py-3 border border-[#00ff88]/20 rounded-lg text-sm bg-[#00ff88]/[0.02]">
-              <span className="text-white font-medium">Sistemas sob medida</span>
-              <span className="text-[#00ff88] font-bold">Preço a consultar</span>
-            </div>
-          </div>
-        </motion.div>
+          <Link href="/pedir" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-black text-[#080808] transition hover:bg-[#00ff88]">
+            <MessageCircle size={17} />
+            Falar com a AION
+          </Link>
+        </div>
       </div>
     </section>
   );

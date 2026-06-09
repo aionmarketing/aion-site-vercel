@@ -1,19 +1,38 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useCallback, type HTMLAttributes, type ReactNode } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import {
   Sparkles, Shield, Smile, Heart, User, Users, Clipboard, Scissors,
   Palette, Award, Zap, Eye, Wrench, Monitor, Droplet, Volume2,
   Lightbulb, Briefcase, Scale, Building, FileText, Calculator,
   TrendingUp, Flame, Utensils, PartyPopper, Wine, Fish, ChefHat,
   Phone, Mail, MapPin, Menu, X, Star, ChevronUp, MessageCircle,
-  Clock, UsersRound, ChevronLeft, ChevronRight, ArrowRight, Check,
+  ChevronLeft, ChevronRight, ArrowRight, Check,
   Dog, ShoppingBag, Microscope, Home, Key, BarChart3, Landmark,
   Dumbbell, Activity, Flower2, Brain
 } from 'lucide-react';
 import type { DemoData } from '@/lib/demos';
 import DemoBanner from '@/components/ui/DemoBanner';
+
+type StaticMotionDivProps = HTMLAttributes<HTMLDivElement> & {
+  children?: ReactNode;
+  initial?: unknown;
+  animate?: unknown;
+  exit?: unknown;
+  transition?: unknown;
+  whileInView?: unknown;
+  viewport?: unknown;
+  layout?: unknown;
+};
+
+function StaticMotionDiv(props: StaticMotionDivProps) {
+  const safeProps = { ...props } as Record<string, unknown>;
+  ['initial', 'animate', 'exit', 'transition', 'whileInView', 'viewport', 'layout'].forEach((key) => delete safeProps[key]);
+  return <div {...(safeProps as HTMLAttributes<HTMLDivElement>)} />;
+}
+
+const motion = { div: StaticMotionDiv };
 
 const iconMap: Record<string, React.ComponentType<{ className?: string; size?: number; color?: string }>> = {
   Sparkles, Shield, Smile, Heart, User, Users, Clipboard, Scissors,
@@ -29,8 +48,6 @@ const Icon = ({ name, size = 24, color }: { name: string; size?: number; color?:
   if (!Comp) return <Sparkles size={size} color={color} />;
   return <Comp size={size} color={color} />;
 };
-
-const statLabels: Record<string, string> = { years: 'Anos de experiência', clients: 'Clientes satisfeitos', team: 'Profissionais', rating: 'Avaliação média' };
 
 // ─── SHARED UI PIECES ──────────────────────────────────────
 
@@ -477,23 +494,58 @@ function TemplateAutoBold({ demo }: { demo: DemoData }) {
     <>
       {/* HERO - Dark with orange accent bar */}
       <section className="relative overflow-hidden bg-[#0c0c0c]">
-        <div className="h-2 w-full" style={{ backgroundColor: demo.primaryColor }} />
-        <div className="absolute inset-0 pointer-events-none" style={{ background: `repeating-linear-gradient(-45deg, transparent, transparent 20px, ${demo.primaryColor}06 20px, ${demo.primaryColor}06 21px)` }} />
-        <div className="absolute top-1/4 right-0 w-96 h-96 rounded-full demo-blur-blob demo-pulse-glow" style={{ backgroundColor: demo.primaryColor }} />
-        <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full demo-blur-blob" style={{ backgroundColor: demo.primaryColor, opacity: 0.06 }} />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
+        <div className="absolute inset-0 z-0">
+          <img src="/images/demos/auto-bold-hero.png" alt="Oficina mecânica premium" className="h-full w-full object-cover opacity-45" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0c] via-transparent to-transparent" />
+        </div>
+        <div className="relative z-20 h-2 w-full" style={{ backgroundColor: demo.primaryColor }} />
+        <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: `repeating-linear-gradient(-45deg, transparent, transparent 20px, ${demo.primaryColor}06 20px, ${demo.primaryColor}06 21px)` }} />
+        <div className="absolute top-1/4 right-0 z-0 w-96 h-96 rounded-full demo-blur-blob demo-pulse-glow" style={{ backgroundColor: demo.primaryColor }} />
+        <div className="absolute -bottom-20 -left-20 z-0 w-72 h-72 rounded-full demo-blur-blob" style={{ backgroundColor: demo.primaryColor, opacity: 0.06 }} />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <p className="text-xs font-black tracking-[0.2em] uppercase mb-6" style={{ color: demo.primaryColor }}>{demo.tagline}</p>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black leading-[0.95] mb-6 text-white uppercase">{demo.heroTitle}</h1>
-              <p className="text-base sm:text-lg mb-10 max-w-xl leading-relaxed" style={{ color: '#888' }}>{demo.heroSubtitle}</p>
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/50 px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-white backdrop-blur">
+                <Shield size={15} color={demo.primaryColor} />
+                Oficina com garantia e orçamento sem surpresa
+              </div>
+              <p className="text-xs font-black tracking-[0.2em] uppercase mb-4" style={{ color: demo.primaryColor }}>{demo.tagline}</p>
+              <h1 className="max-w-3xl text-4xl sm:text-5xl lg:text-6xl font-black leading-[0.94] mb-5 uppercase" style={{ color: '#ffffff', textShadow: '0 4px 28px rgba(0,0,0,0.95)' }}>{demo.heroTitle}</h1>
+              <p className="text-sm sm:text-base mb-7 max-w-2xl leading-relaxed" style={{ color: 'rgba(255,255,255,0.86)', textShadow: '0 2px 16px rgba(0,0,0,0.9)' }}>{demo.heroSubtitle}</p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <a href={wa} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-10 py-5 font-black text-sm tracking-wider uppercase hover:scale-105 transition-transform" style={{ backgroundColor: demo.primaryColor, color: '#fff' }}><MessageCircle size={18} />{demo.heroCta}</a>
-                <a href={`tel:${demo.phone.replace(/\D/g, '')}`} className="inline-flex items-center gap-2 px-8 py-5 font-bold text-sm uppercase border-2 hover:border-white/40 transition-colors" style={{ borderColor: `${demo.primaryColor}60`, color: '#fff' }}><Phone size={18} />{demo.phone}</a>
+                <a href={wa} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-9 py-5 font-black text-sm tracking-wider uppercase shadow-2xl shadow-orange-950/30 transition-transform hover:scale-[1.03]" style={{ backgroundColor: demo.primaryColor, color: '#fff' }}><MessageCircle size={18} />{demo.heroCta}</a>
+                <a href={`tel:${demo.phone.replace(/\D/g, '')}`} className="inline-flex items-center justify-center gap-2 px-8 py-5 font-bold text-sm uppercase border-2 bg-black/40 backdrop-blur transition-colors hover:border-white/40" style={{ borderColor: `${demo.primaryColor}60`, color: '#fff' }}><Phone size={18} />{demo.phone}</a>
+              </div>
+              <div className="mt-6 grid max-w-xl grid-cols-1 gap-3 sm:grid-cols-3">
+                {[
+                  ['Laudo com fotos', 'você vê o problema'],
+                  ['12 meses', 'de garantia real'],
+                  ['WhatsApp', 'acompanhe cada etapa'],
+                ].map(([title, desc]) => (
+                  <div key={title} className="border border-white/10 bg-black/45 p-4 backdrop-blur">
+                    <div className="text-sm font-black uppercase text-white">{title}</div>
+                    <div className="mt-1 text-xs text-white/45">{desc}</div>
+                  </div>
+                ))}
               </div>
             </motion.div>
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }} className="hidden lg:block">
-              <div className="relative rounded overflow-hidden aspect-[4/3]"><img src="/images/demos/auto-bold-hero.png" alt="Oficina" className="w-full h-full object-cover" /><div className="absolute inset-0" style={{ background: `linear-gradient(135deg, ${demo.primaryColor}30 0%, transparent 50%)` }} /></div>
+              <div className="relative overflow-hidden border border-white/10 bg-black/50 p-4 shadow-2xl shadow-black/40 backdrop-blur">
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img src="/images/demos/auto-bold-about.png" alt="Diagnóstico na oficina" className="w-full h-full object-cover" />
+                  <div className="absolute inset-0" style={{ background: `linear-gradient(135deg, ${demo.primaryColor}20 0%, transparent 55%)` }} />
+                </div>
+                <div className="absolute -bottom-5 left-8 right-8 border border-white/10 bg-[#0c0c0c]/95 p-5 shadow-xl">
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <div className="text-xs font-black uppercase tracking-[0.18em]" style={{ color: demo.primaryColor }}>Diagnóstico aprovado</div>
+                      <div className="mt-1 text-sm text-white">Serviço só começa depois do cliente aprovar.</div>
+                    </div>
+                    <Check size={28} color={demo.primaryColor} />
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </div>
           {/* Gauge stats */}
@@ -1227,7 +1279,6 @@ function TemplateFitnessZen({ demo }: { demo: DemoData }) {
 // ─── SHARED SECTION COMPONENTS ─────────────────────────────
 
 function SectionServicesGrid({ demo, isLight, rounded = '12px' }: { demo: DemoData; isLight: boolean; rounded?: string }) {
-  const wa = `https://wa.me/${demo.whatsapp}`;
   return (
     <section id="servicos" className="py-20 sm:py-28" style={{backgroundColor:isLight?'#fff':'#0c0c0c'}}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

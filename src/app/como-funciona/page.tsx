@@ -4,10 +4,10 @@ import Footer from '@/components/ui/Footer';
 export const metadata = { title: 'Como Funciona — AION SITE BUILDER' };
 
 const steps = [
-  { num: '01', title: 'Escolha o template que combina com seu negócio', desc: 'São 16 modelos profissionais prontos. Cada um pensado pra um nicho: saúde, beleza, auto, restaurante, pet e mais. Escolha o que mais combina com sua marca.' },
-  { num: '02', title: 'Selecione o plano ideal pra você', desc: 'Essencial (R$1.497), Profissional (R$2.497) ou 100% Personalizado (R$4.497). Todos com entrega rápida, design responsivo e WhatsApp integrado.' },
-  { num: '03', title: 'Mande suas informações pelo WhatsApp', desc: 'Nome, endereço, telefone, serviços, fotos — tudo pelo WhatsApp. Sem formulário complicado, sem reunião chata. Responda no seu tempo.' },
-  { num: '04', title: 'Receba seu site pronto em até 24 horas', desc: 'A gente monta, personaliza e publica. Você aprova e seu site já tá no ar convertendo visitantes em clientes. Sim, é assim de simples.' },
+  { num: '01', title: 'Escolha uma direção visual', desc: 'Você mostra o estilo que combina com sua empresa. AION usa isso como ponto de partida, não como limite.' },
+  { num: '02', title: 'A gente entende sua oferta', desc: 'Serviços, diferenciais, público, região, objeções e tipo de contato que você quer receber pelo WhatsApp.' },
+  { num: '03', title: 'Criamos a versão profissional', desc: 'Visual, copy, estrutura, CTA, SEO local e responsivo. Tudo com foco em transmitir confiança e gerar contato.' },
+  { num: '04', title: 'Você aprova e o site vai ao ar', desc: 'Depois dos ajustes finais, publicamos e deixamos pronto para você divulgar no Instagram, Google, WhatsApp e cartão digital.' },
 ];
 
 export default function ComoFuncionaPage() {
@@ -18,10 +18,10 @@ export default function ComoFuncionaPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <p className="text-xs font-medium tracking-[0.25em] uppercase text-[#00ff88] mb-3">Como Funciona</p>
-            <h1 className="heading-section text-white">4 passos.<br />24 horas.<br />Seu site no ar.</h1>
+            <h1 className="heading-section text-white">4 passos.<br />Sem enrolação.<br />Seu site no ar.</h1>
           </div>
           <div className="space-y-0">
-            {steps.map((s, i) => (
+            {steps.map((s) => (
               <div key={s.num} className="flex items-start gap-8 py-10 border-b border-white/5 first:pt-0 last:border-0">
                 <div className="text-5xl sm:text-6xl font-bold text-white/10 tabular-nums shrink-0">{s.num}</div>
                 <div>

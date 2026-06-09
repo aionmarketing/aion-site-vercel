@@ -10,9 +10,9 @@ export default function Home() {
     <main className="min-h-screen bg-[#0c0c0c]">
       <Navbar />
       <Hero />
+      <Depoimentos />
       <Diferenciais />
       <Planos />
-      <Depoimentos />
       <Footer />
     </main>
   );

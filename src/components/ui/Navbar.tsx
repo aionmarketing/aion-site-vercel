@@ -8,9 +8,9 @@ export default function Navbar() {
         <Link href="/" className="text-xl font-bold tracking-tight text-white">AION<span className="text-[#00ff88]">.</span></Link>
         <div className="hidden md:flex items-center gap-8">
           <Link href="/" className="text-sm text-gray-400 hover:text-white transition-colors">Home</Link>
-          <Link href="/templates" className="text-sm text-gray-400 hover:text-white transition-colors">Templates</Link>
+          <Link href="/templates" className="text-sm text-gray-400 hover:text-white transition-colors">Exemplos</Link>
           <Link href="/como-funciona" className="text-sm text-gray-400 hover:text-white transition-colors">Como Funciona</Link>
-          <Link href="/pedir" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#00ff88] text-[#0c0c0c] text-sm font-bold rounded-lg hover:brightness-110 transition-all"><MessageCircle size={16} />Pedir Site</Link>
+          <Link href="/pedir" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#00ff88] text-[#0c0c0c] text-sm font-bold rounded-lg hover:brightness-110 transition-all"><MessageCircle size={16} />Pedir orçamento</Link>
         </div>
       </div>
     </nav>
